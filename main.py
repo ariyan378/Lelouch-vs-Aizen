@@ -3,7 +3,7 @@ import random
 class Character:
     def __init__(self, name, attributes):
         self.name = name
-        self.attributes = attributes  # This is a list of tuples (Name, Score)
+        self.attributes = attributes  
 
     def show_stats(self):
         print(f"\n--- {self.name}'s Arsenal ---")
@@ -18,7 +18,7 @@ class BattleEngine:
     def start_clash(self):
         print(f"BATTLE START: {self.player.name} vs {self.computer.name}")
         
-        # Game runs for 3 rounds
+ 
         player_score = 0
         comp_score = 0
         
@@ -26,7 +26,7 @@ class BattleEngine:
             print(f"\n--- ROUND {round_num} ---")
             self.player.show_stats()
             
-            # 1. Player Choice
+   
             try:
                 choice = int(input(f"Choose an attribute for {self.player.name} (1-8): ")) - 1
                 p_attr, p_val = self.player.attributes[choice]
@@ -34,19 +34,17 @@ class BattleEngine:
                 print("Invalid command! You lose this round's focus.")
                 continue
 
-            # 2. Computer Choice (Random attribute from Aizen's list)
             c_choice = random.randint(0, 7)
             c_attr, c_val = self.computer.attributes[c_choice]
 
-            # 3. The "Strategist" Luck Factor
-            # We add a random "Chaos Factor" between -1 and +2
+
             luck = random.randint(-1, 2)
             total_player_power = p_val + luck
 
             print(f"\n{self.player.name} uses: {p_attr} ({p_val}) + Luck ({luck}) = {total_player_power}")
             print(f"{self.computer.name} counters with: {c_attr} ({c_val})")
 
-            # 4. Determine Round Winner
+
             if total_player_power > c_val:
                 print(f"Outcome: {self.player.name} outmaneuvered the enemy!")
                 player_score += 1
@@ -56,7 +54,7 @@ class BattleEngine:
             else:
                 print("Outcome: A perfect stalemate!")
 
-        # Final Result
+
         print("\n========================")
         if player_score > comp_score:
             print(f"FINAL WINNER: {self.player.name} - 'All according to plan.'")
@@ -65,7 +63,7 @@ class BattleEngine:
         else:
             print("FINAL RESULT: It's a draw. The world remains in balance.")
 
-# --- Character Data ---
+
 lelouch_stats = [
     ("Strategic Genius", 10), ("Chess Mastery", 8), ("Political Cunning", 10),
     ("Willpower", 7), ("Geass Eye", 10), ("Leadership (Zero)", 10),
@@ -78,7 +76,7 @@ aizen_stats = [
     ("Kido Mastery", 9), ("Flash Steps", 9)
 ]
 
-# --- Initialize and Run ---
+
 char1 = Character("Lelouch Vi Britannia", lelouch_stats)
 char2 = Character("Sosuke Aizen", aizen_stats)
 
