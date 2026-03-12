@@ -1,6 +1,12 @@
 import random
 
 class Character:
+    '''
+    We are creating a class called character that storesthe character name and its all power attribute he can use in the fight
+    
+    we will also shows these attribute to the user so that they can see using show_stats() function
+    '''
+    
     def __init__(self, name, attributes):
         self.name = name
         self.attributes = attributes  
@@ -8,7 +14,7 @@ class Character:
     def show_stats(self):
         print(f"\n--- {self.name}'s Arsenal ---")
         for i, (attr, score) in enumerate(self.attributes, 1):
-            print(f"{i}. {attr} ---- {score}")
+            print(f"{i}-> {attr}")
 
 class BattleEngine:
     def __init__(self, player_char, computer_char):
@@ -20,12 +26,12 @@ class BattleEngine:
         player_hp = 100
         comp_hp = 100
 
-        print(f"BATTLE START: {self.player.name} vs {self.computer.name}")
+        print(f"{self.player.name} vs {self.computer.name}")
 
         while True:
 
             self.player.show_stats()
-            print(f"\n[CURRENT HP] {self.player.name}: {player_hp} | {self.computer.name}: {comp_hp}")
+            print(f"\n {self.player.name}: {player_hp} Hp | {self.computer.name}: {comp_hp} Hp")
 
             try:
                 choice = int(input(f"Choose an attribute for {self.player.name} (1-8): ")) - 1
@@ -37,12 +43,13 @@ class BattleEngine:
             c_choice = random.randint(0, 7)
             c_attr, c_val = self.computer.attributes[c_choice]
 
-            luck = random.randint(-5, 5)
-            total_player_power = p_val + luck
-            total_computer_power = c_val + luck
+            luck_l = random.randint(-5, 5)
+            luck_a = random.randint(-5, 5)
+            total_player_power = p_val + luck_l
+            total_computer_power = c_val + luck_a
 
-            print(f"\n{self.player.name} uses: {p_attr} ({p_val}) + Luck ({luck}) = {total_player_power}")
-            print(f"{self.computer.name} counters with: {c_attr} ({c_val}) + Luck ({luck}) = ({total_computer_power})")
+            print(f"\n{self.player.name} uses: {p_attr} ({p_val}) + Luck ({luck_l}) = {total_player_power}")
+            print(f"{self.computer.name} counters with: {c_attr} ({c_val}) + Luck ({luck_a}) = ({total_computer_power})")
             print("____________________________\n")
             
             
@@ -57,13 +64,13 @@ class BattleEngine:
                     
             
             if player_hp <= 0 and comp_hp <= 0:
-                print("\nFINAL RESULT: It's a draw. Mutual destruction.")
+                print("\n---  draw  ----")
                 break
             elif player_hp <= 0:
-                print(f"\nFINAL WINNER: {self.computer.name} - 'Since when were you under the impression you were winning?'")
+                print(f"\n WINNER: {self.computer.name} - 'Since when were you under the impression you were winning?'")
                 break
             elif comp_hp <= 0:
-                print(f"\nFINAL WINNER: {self.player.name} - 'All Hail Lelouch!'")
+                print(f"\nWINNER: {self.player.name} - 'All Hail Lelouch!'")
                 break
 
 lelouch_stats = [
@@ -78,8 +85,17 @@ aizen_stats = [
     ("Kido Mastery", 9), ("Flash Steps", 9)
 ]
 
-char1 = Character("Lelouch Vi Britannia", lelouch_stats)
-char2 = Character("Sosuke Aizen", aizen_stats)
+print("Charcater List: \
+    1.Lelouch Vi Britania\
+    2.Aizen\n")
+CharacterChoice= int(input('Enter your Choice 1/2 :'))
+if CharacterChoice==1:
+    player= Character("Lelouch Vi Britannia", lelouch_stats)
+    computer = Character("Sosuke Aizen", aizen_stats)
+else:
+    computer= Character("Lelouch Vi Britannia", lelouch_stats)
+    player = Character("Sosuke Aizen", aizen_stats)
 
-game = BattleEngine(char1, char2)
+
+game = BattleEngine(player, computer)
 game.start_clash()
